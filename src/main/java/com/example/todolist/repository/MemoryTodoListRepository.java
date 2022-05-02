@@ -1,11 +1,13 @@
 package com.example.todolist.repository;
 
 import com.example.todolist.model.TodoList;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Repository
 public class MemoryTodoListRepository implements TodoListRepository {
 
     ConcurrentHashMap<LocalDate, Map<Long, TodoList>> allList = new ConcurrentHashMap<>();
@@ -24,7 +26,6 @@ public class MemoryTodoListRepository implements TodoListRepository {
     @Override
     public void deleteById(Long id, LocalDate date) {
         allList.get(date).remove(id);
-        System.out.println(allList);
     }
 
     @Override

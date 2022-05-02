@@ -20,4 +20,5 @@ public class DataResponseDto {
     private String description;
     private String priority;
     private int rank;
+    private String status;
 }

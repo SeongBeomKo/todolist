@@ -29,7 +29,7 @@ public class MainController {
 
     @DeleteMapping("/task/{id}")
     public void removeTodo(@PathVariable Long id, @RequestBody DataRequestDto dataRequestDto) {
-        mainService.removeTodo(id, dataRequestDto);
+        mainService.removeTodo(id, dataRequestDto.getDuedate());
     }
 
     @PutMapping("/task/{id}")

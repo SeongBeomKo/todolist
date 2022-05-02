@@ -11,6 +11,16 @@ public enum Status {
     }
 
     public String getStatus() {
-        return this.getStatus();
+        return this.status;
+    }
+
+    public static Status EnumConverter(String keyword) {
+        if(keyword.equals("진행중")) {
+            return Status.ONGOING;
+        } else if(keyword.equals("완료")) {
+            return Status.COMPLETED;
+        } else {
+            return Status.CANCELLED;
+        }
     }
 }

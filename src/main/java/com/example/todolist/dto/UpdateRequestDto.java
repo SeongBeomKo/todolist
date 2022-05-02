@@ -1,10 +1,7 @@
 package com.example.todolist.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -12,6 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 public class UpdateRequestDto {
 
     //data input 전부 not null

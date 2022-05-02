@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -15,5 +16,7 @@ public class PostRequestDto {
 
     private String title;
     private String description;
-    private LocalDate dueDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate duedate;
 }

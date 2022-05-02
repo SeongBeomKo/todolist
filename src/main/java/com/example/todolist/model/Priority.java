@@ -10,6 +10,6 @@ public enum Priority {
     }
 
     public String getPriority() {
-        return this.getPriority();
+        return this.priority;
     }
 }
