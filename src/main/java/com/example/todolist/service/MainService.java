@@ -23,6 +23,7 @@ public class MainService {
 
     private final MemoryTodoListRepository memoryTodoListRepository;
 
+    /* 할일 조회 */
     public List<DataResponseDto> showTodos(DataRequestDto dataRequestDto) {
         List<TodoList> todoLists = memoryTodoListRepository
                 .getAllTodosByDueDateOrderByPriorityAndRank(dataRequestDto.getDuedate());
@@ -44,6 +45,7 @@ public class MainService {
         return dataResponseDtos;
     }
 
+    /* 할일 생성 */
     public Long addTodo(PostRequestDto dataRequestDto) {
 
         List<TodoList> todoLists = memoryTodoListRepository
@@ -67,6 +69,7 @@ public class MainService {
         return memoryTodoListRepository.save(newTodoList).getId();
     }
 
+    /* 할일 삭제 */
     public void removeTodo(Long id, LocalDate date) {
 
         TodoList todoList = memoryTodoListRepository
@@ -80,6 +83,7 @@ public class MainService {
                 .filter(c -> c.getPriority().getPriority().equals(todoList.getPriority().getPriority()))
                 .collect(Collectors.toList());
 
+        /* 중간 순서 삭제 시*/
         for(TodoList todoList1 : todoListBefore) {
             if(todoList1.getRank() > todoList.getRank()) {
                 todoList1.setRank(todoList1.getRank() - 1);
@@ -90,6 +94,7 @@ public class MainService {
 
     }
 
+    /* 할일 수정 */
     public DataResponseDto updateTodo(Long id, UpdateRequestDto dataRequestDto) {
 
         TodoList todoList = memoryTodoListRepository
@@ -97,9 +102,11 @@ public class MainService {
 
         removeTodo(id, dataRequestDto.getDuedate());
 
+        /* 중요도 수정 발생 시 */
         if(!dataRequestDto.getPriority().equals(todoList.getPriority().getPriority())) {
             helpPriorityAndRankUpdate(dataRequestDto, todoList);
         } else {
+            /* 중요도 수정은 발생하지 않고 순서만 수정 발생 시 */
             if(dataRequestDto.getRank() != todoList.getRank()) {
                 helpPriorityAndRankUpdate(dataRequestDto, todoList);
             }
@@ -124,6 +131,7 @@ public class MainService {
                 .build();
     }
 
+    /* 할일 수정 시 중요도와 순서 재정렬*/
     public void helpPriorityAndRankUpdate(UpdateRequestDto dataRequestDto, TodoList todoList) {
         List<TodoList> todoLists = memoryTodoListRepository
                 .getAllTodosByDueDateOrderByPriorityAndRank(dataRequestDto.getDuedate());
@@ -133,11 +141,13 @@ public class MainService {
                         .equals(dataRequestDto.getPriority()))
                 .collect(Collectors.toList());
 
+        /* 순서 누락 제거*/
         if(todoListAfter.size() < dataRequestDto.getRank()) {
             dataRequestDto
                     .setRank(dataRequestDto.getRank() -
                             (dataRequestDto.getRank() - todoListAfter.size()));
         } else {
+            /* 순서 중간 삽입 시*/
             for(TodoList todoList1 : todoListAfter) {
                 if(todoList1.getRank() <= todoList.getRank()) {
                     todoList1.setRank(todoList1.getRank() + 1);

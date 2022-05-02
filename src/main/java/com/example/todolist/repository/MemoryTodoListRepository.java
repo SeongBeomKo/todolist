@@ -13,6 +13,8 @@ public class MemoryTodoListRepository implements TodoListRepository {
     ConcurrentHashMap<LocalDate, Map<Long, TodoList>> allList = new ConcurrentHashMap<>();
     private static long sequence = 0L;
 
+
+    /* 데이터 저장 */
     @Override
     public TodoList save(TodoList todoList) {
         todoList.setId(++sequence);
@@ -23,11 +25,13 @@ public class MemoryTodoListRepository implements TodoListRepository {
         return todoList;
     }
 
+    /* 데이터 삭제 */
     @Override
     public void deleteById(Long id, LocalDate date) {
         allList.get(date).remove(id);
     }
 
+    /* 날짜별 데이터 찾기 */
     @Override
     public List<TodoList> findByDueDate(LocalDate date) {
         List<TodoList> listForTheDate = new ArrayList<>();
@@ -38,11 +42,13 @@ public class MemoryTodoListRepository implements TodoListRepository {
         return listForTheDate;
     }
 
+    /* 날짜와 아이디 값으로 distinct 데이터 찾기 */
     @Override
     public TodoList findByDueDateAndId(LocalDate localDate, Long id) {
         return allList.get(localDate).get(id);
     }
 
+    /* 중요도와 순서순으로 정렬된 해당 날짜의 데이터 찾기 */
     @Override
     public List<TodoList> getAllTodosByDueDateOrderByPriorityAndRank(LocalDate date) {
         List<TodoList> todoLists = new ArrayList<>();
@@ -67,6 +73,7 @@ public class MemoryTodoListRepository implements TodoListRepository {
         return todoLists;
     }
 
+    /* 데이터 값 수정 하기 */
     @Override
     public TodoList update(TodoList todoList) {
         Map<Long, TodoList> listForTheDate = allList.get(todoList.getDueDate());

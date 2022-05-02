@@ -22,7 +22,7 @@ public class MainController {
         return mainService.showTodos(dataRequestDto);
     }
 
-    @PostMapping("/newTask")
+    @PostMapping("/newtask")
     public Long addTodo( @RequestBody PostRequestDto dataRequestDto) {
         return mainService.addTodo(dataRequestDto);
     }
