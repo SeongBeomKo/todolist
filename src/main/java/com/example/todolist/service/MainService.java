@@ -1,9 +1,9 @@
 package com.example.todolist.service;
 
-import com.example.todolist.dto.DataRequestDto;
-import com.example.todolist.dto.DataResponseDto;
-import com.example.todolist.dto.PostRequestDto;
-import com.example.todolist.dto.UpdateRequestDto;
+import com.example.todolist.dto.request.DataRequestDto;
+import com.example.todolist.dto.response.DataResponseDto;
+import com.example.todolist.dto.request.PostRequestDto;
+import com.example.todolist.dto.request.UpdateRequestDto;
 import com.example.todolist.model.Priority;
 import com.example.todolist.model.Status;
 import com.example.todolist.model.TodoList;
